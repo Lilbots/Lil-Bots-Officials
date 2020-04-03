@@ -4,8 +4,10 @@ const db = require('quick.db');
 const fs = require('fs');
 const { prefix, token } = require('./config.json');
 const git = require('simple-git');
+const QuickEncrypt = require('quick-encrypt')
 
 client.on('ready', () => {
+    EncryptCONFIG();
     console.log('all component initialized');
     client.user.setStatus('online')
     client.user.setActivity(`${prefix}help || https://lilbots.github.io/Lil-Bots-Officials/index.htm`, { type: "WATCHING" })
@@ -706,6 +708,24 @@ function refreshHtml() {
             if (err) throw err;
             console.log('The file has been saved!');
         });
+    });
+}
+
+function EncryptCONFIG() {
+    let keys = QuickEncrypt.generate(1024);
+    let publicKey = keys.public;
+    let c = "";
+
+    fs.readFile('./config.json', function read(err, data) {
+        if (err) throw err;
+        c = data;
+        console.log(data);
+    });
+
+    let encryptedText = QuickEncrypt.encrypt(`${c}`, publicKey)
+    fs.writeFile('./config.json', `${encryptedText}`, (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
     });
 }
 client.login(token);
