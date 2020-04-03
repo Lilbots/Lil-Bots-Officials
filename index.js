@@ -9,7 +9,9 @@ const config = {
     prefix: process.env.PREFIX,
     token: process.env.TOKEN
 };
+
 console.log(config.token);
+
 client.on('ready', () => {
     console.log('all component initialized');
     client.user.setStatus('online')
