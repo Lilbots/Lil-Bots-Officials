@@ -77,7 +77,7 @@ client.on('ready', () => {
         });
     });
     require('simple-git')()
-        //.init()
+        .init()
         .add('.')
         .commit("first commit!")
         //.addRemote('origin', 'https://github.com/Lilbots/Lil-Bots-Officials.git')
