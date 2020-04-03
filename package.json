@@ -1,0 +1,17 @@
+{
+    "name": "lilsite-manager",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "main": "index.js"
+    },
+    "author": "Lil Bots",
+    "license": "ISC",
+    "dependencies": {
+        "discord.js": "^12.1.1",
+        "fs": "0.0.1-security",
+        "quick.db": "^7.0.0-b22",
+        "simple-git": "^1.132.0"
+    }
+}
