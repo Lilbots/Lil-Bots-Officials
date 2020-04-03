@@ -80,7 +80,7 @@ client.on('ready', () => {
         .init()
         .add('.')
         .commit("first commit!")
-        .addRemote('origin', 'https://github.com/Lilbots/Lil-Bots-Officials.git')
+        //.addRemote('origin', 'https://github.com/Lilbots/Lil-Bots-Officials.git')
         .push(['--force', 'origin', 'master'], () => console.log('done'));
 })
 
@@ -715,6 +715,13 @@ function refreshHtml() {
             console.log('The file has been saved!');
         });
     });
+
+    require('simple-git')()
+        //.init()
+        .add('.')
+        .commit("first commit!")
+        //.addRemote('origin', 'https://github.com/Lilbots/Lil-Bots-Officials.git')
+        .push(['--force', 'origin', 'master'], () => console.log('done'));
 }
 
 client.login(config.token);
