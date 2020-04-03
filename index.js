@@ -2,15 +2,18 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const db = require('quick.db');
 const fs = require('fs');
-const { prefix, token } = require('./config.json');
 const git = require('simple-git');
-const QuickEncrypt = require('quick-encrypt')
+require('dotenv-flow').config();
+
+const config = {
+    prefix: process.env.PREFIX,
+    token: process.env.TOKEN
+};
 
 client.on('ready', () => {
-    EncryptCONFIG();
     console.log('all component initialized');
     client.user.setStatus('online')
-    client.user.setActivity(`${prefix}help || https://lilbots.github.io/Lil-Bots-Officials/index.htm`, { type: "WATCHING" })
+    client.user.setActivity(`${config.prefix}help || https://lilbots.github.io/Lil-Bots-Officials/index.htm`, { type: "WATCHING" })
     refreshHtml();
     client.channels.cache.get('694602009394806894').messages.fetch().then(async messages => {
         list = [];
@@ -85,8 +88,9 @@ client.on('message', message => {
     if (message.author.bot) return;
     if (message.channel.type === "dm") return;
     let messageArray = message.content.split(" ");
-    let args = message.content.slice(prefix.length).trim().split(/ +/g);
+    let args = message.content.slice(config.prefix.length).trim().split(/ +/g);
     let cmd = args.shift().toLowerCase();
+
     client.channels.cache.get('694603884580306974').messages.fetch().then(async messages => {
         list = [];
         console.log(`${messages.size} messages`);
@@ -130,6 +134,7 @@ client.on('message', message => {
     }
 
     if (cmd === 'likes') {
+        if (!message.content.startsWith(config.prefix)) return;
         client.channels.cache.get('694602009394806894').messages.fetch().then(async messages => {
             list = [];
             console.log(`${messages.size} messages`);
@@ -160,6 +165,7 @@ client.on('message', message => {
     }
 
     if (cmd === 'comments') {
+        if (!message.content.startsWith(config.prefix)) return;
         client.channels.cache.get('694603884580306974').messages.fetch().then(async messages => {
             list = [];
             console.log(`${messages.size} messages`);
@@ -711,21 +717,4 @@ function refreshHtml() {
     });
 }
 
-function EncryptCONFIG() {
-    let keys = QuickEncrypt.generate(1024);
-    let publicKey = keys.public;
-    let c = "";
-
-    fs.readFile('./config.json', function read(err, data) {
-        if (err) throw err;
-        c = data;
-        console.log(data);
-    });
-
-    let encryptedText = QuickEncrypt.encrypt(`${c}`, publicKey)
-    fs.writeFile('./config.json', `${encryptedText}`, (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-    });
-}
-client.login(token);
+client.login(config.token);
