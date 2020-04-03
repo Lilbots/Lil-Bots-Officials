@@ -3,13 +3,13 @@ const client = new Discord.Client();
 const db = require('quick.db');
 const fs = require('fs');
 const git = require('simple-git');
-require('dotenv-flow').config();
+require('dotenv-flow').config({ path: './env/' });
 
 const config = {
     prefix: process.env.PREFIX,
     token: process.env.TOKEN
 };
-
+console.log(config.token);
 client.on('ready', () => {
     console.log('all component initialized');
     client.user.setStatus('online')

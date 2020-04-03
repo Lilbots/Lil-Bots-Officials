@@ -1,4 +1,4 @@
-.env
+env
 config.json
 package-lock.json
 unknown.png
