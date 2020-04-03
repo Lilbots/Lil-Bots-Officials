@@ -720,7 +720,6 @@ function refreshHtml() {
         //.init()
         .add('.')
         .commit("first commit!")
-        //.addRemote('origin', 'https://github.com/Lilbots/Lil-Bots-Officials.git')
         .push(['--force', 'origin', 'master'], () => console.log('done'));
 }
 
